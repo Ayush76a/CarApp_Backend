@@ -10,12 +10,13 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-const corsOptions = {
-  origin: 'http://localhost:3000', 'https://lambent-sunburst-90f601.netlify.app',
+const corsOptions = { 
+  origin: ['http://localhost:3000', 'https://lambent-sunburst-90f601.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
