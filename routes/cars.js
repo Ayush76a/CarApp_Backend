@@ -48,26 +48,6 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// Search for cars by title, filtered by the authenticated user
-router.get('/search', auth, async (req, res) => {
-  const { keyword } = req.query;
-
-  if (!keyword || keyword.trim() === '') {
-    return res.status(400).send('Search keyword is required');
-  }
-
-  try {
-    const cars = await Car.find({
-      userId: req.user._id,
-      title: { $regex: keyword, $options: 'i' },
-    });
-    res.send(cars);
-  } catch (err) {
-    console.error('Error in search route:', err.stack);
-    res.status(500).send(`Server error: ${err.message}`);
-  }
-});
-
 // Update car route with Cloudinary image handling
 router.put('/:id', auth, upload.array('images', 10), async (req, res) => {
   const { title, description, tags } = req.body;
